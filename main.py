@@ -1,13 +1,23 @@
 import cv2
 import numpy as np
+import sys
+
+
+
 
 if __name__ == '__main__':
+
+    print("Tree Bark Recognition")
     #Image path
-    path_to_foto = 'fotos/Boom_7_A.jpg'
+    lenght = len(sys.argv)
+    if(lenght >= 2):
+        path_to_foto = 'fotos/' + sys.argv[1]
+        print(path_to_foto)
+    else:
+        path_to_foto = 'fotos/Boom_1_A.jpg'
 
-
-    img = cv2.imread(path_to_foto)              #For opening image
-    #imS = cv2.resize(img, (640, 480))           #Resize to smaller size for easy screen
+    imS = cv2.imread(path_to_foto)              #For opening image
+    img = cv2.resize(imS, (640, 480))           #Resize to smaller size for easy screen
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)  #HSV filter
     gray= cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
     color = cv2.applyColorMap(img, cv2.COLORMAP_JET)
