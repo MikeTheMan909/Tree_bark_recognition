@@ -39,7 +39,7 @@ cv2.createTrackbar('high V', 'controls', 255, 255, callback)
 #cap = cv2.VideoCapture(0)
 while (1):
     # read source image
-    imgS = cv2.imread('fotos/oude fotos/Boom_8_A.jpg')
+    imgS = cv2.imread('fotos/Acer_davidii_4.jpg')
     imgD = cv2.resize(imgS, (640, 480))
     img = cv2.GaussianBlur(imgD, (5, 5), 0)
     # convert sourece image to HSC color mode
