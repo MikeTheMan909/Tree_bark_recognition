@@ -11,6 +11,15 @@ output = r'C:\Users\mike0\OneDrive - Stichting Hogeschool Utrecht\Documenten\Hog
 def Average(lst):
     return sum(lst) / len(lst)
 
+def avg_color(image): #contour
+    channels = cv2.mean(imS) #, mask
+    h = channels[0]
+    s = channels[1]
+    v = channels[2]
+    h = int(round(h,0))
+    s = int(round(s,0))
+    v = int(round(v,0))
+    return h, s, v
 
 def houghlines(img):
     horizontal = 0
@@ -140,12 +149,14 @@ if __name__ == '__main__':
         path_to_foto = sys.argv[1]
         print(path_to_foto)
     else:
-        path_to_foto = 'fotos/Prunus_maheleb_1.jpg'
+        path_to_foto = 'watercipres_2.jpg'
 
     imS = cv2.imread(path_to_foto)  # For opening image
     print(houghlines(imS))
     boomA =GCLM_calc(imS, 0)
     print("Average of dissimilarity tree A:" + str(boomA))
+    a=avg_color(imS)
+    print(a)
 
     # Destroy window
     #cv2.waitKey(0)
