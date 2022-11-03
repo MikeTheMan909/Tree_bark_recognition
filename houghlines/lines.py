@@ -17,7 +17,7 @@ def houghlines():
     blur = cv2.GaussianBlur(blur, (5, 5), 0)
     blur = cv2.GaussianBlur(blur, (5, 5), 0)
     edges = cv2.Canny(blur, 80, 120)
-    linesP = cv2.HoughLinesP(edges, 20, np.pi / 360, 10, None, 50, 30)
+    linesP = cv2.HoughLinesP(edges, 20, np.pi / 360, 10, None, 60, 40)
     if linesP is not None:
         for i in range(0, len(linesP)):
             l = linesP[i][0]

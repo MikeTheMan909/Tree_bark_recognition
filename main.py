@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 
+output = r'C:\Users\mike0\OneDrive - Stichting Hogeschool Utrecht\Documenten\Hogeschool Utrecht\ElektroTechniek\Jaar 4\Beeldherkenning\werkmap\code\houghlines\img.png'
 
 def Average(lst):
     return sum(lst) / len(lst)
@@ -14,12 +15,13 @@ def Average(lst):
 def houghlines(img):
     horizontal = 0
     vertical = 0
+    img = cv2.resize(img, [640,480])
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
-    blur = cv2.GaussianBlur(blur, (5, 5), 0)
-    blur = cv2.GaussianBlur(blur, (5, 5), 0)
+    #blur = cv2.GaussianBlur(blur, (5, 5), 0)
+    #blur = cv2.GaussianBlur(blur, (5, 5), 0)
     edges = cv2.Canny(blur, 80, 120)
-    linesP = cv2.HoughLinesP(edges, 20, np.pi / 360, 10, None, 50, 30)
+    linesP = cv2.HoughLinesP(edges, 1, np.pi / 180, 10, None, 40, 10)
     if linesP is not None:
         for i in range(0, len(linesP)):
             l = linesP[i][0]
@@ -39,12 +41,12 @@ def houghlines(img):
 
             if 90 < angle_degree < 115 or 90 > angle_degree > 65 or -65 > angle_degree > -90 or -115 < angle_degree < -90:
                 cv2.line(img,  (l[0], l[1]), (l[2], l[3]), (0,0,255), 1, cv2.LINE_AA)
-                horizontal = horizontal+1
+                vertical = vertical + 1
             if 0 <= angle_degree < 30 or 0 >= angle_degree > -15:
                 cv2.line(img, (l[0], l[1]), (l[2], l[3]), (255, 0, 0), 1, cv2.LINE_AA)
-                vertical = vertical + 1
+                horizontal = horizontal + 1
 
-    #cv2.imwrite(output, img)
+    cv2.imwrite(output, img)
     return (horizontal/(horizontal + vertical)), (vertical/(horizontal + vertical)), ((horizontal + vertical))
 
 def image_testing():
@@ -101,8 +103,6 @@ def GCLM_calc(imSA, show):
 
     boomA = Average(xs[:len(barkALocation)])
 
-
-
     if show:
         fig = plt.figure(figsize=(5, 5))
 
@@ -140,7 +140,7 @@ if __name__ == '__main__':
         path_to_foto = sys.argv[1]
         print(path_to_foto)
     else:
-        path_to_foto = 'fotos/Clematis_flammula_4.jpg'
+        path_to_foto = 'fotos/Prunus_maheleb_1.jpg'
 
     imS = cv2.imread(path_to_foto)  # For opening image
     print(houghlines(imS))
